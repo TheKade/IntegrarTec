@@ -1,6 +1,12 @@
 const display = document.querySelector(".calculator-display");
 const keypad = document.querySelector(".calculator-keypad");
 
+const calculatorState = {
+    currentValue : "0",
+    previousValue: null,
+    operator: null
+};
+
 const buttons = [
 { label: "7", type: "number" },
 { label: "8", type: "number" },
@@ -34,3 +40,51 @@ buttons.forEach(function (buttonConfig){
     keypad.append(button);
 })
 
+function renderDisplay() {
+    display.textContent = calculatorState.currentValue;
+}
+
+keypad.addEventListener("click", function(event) {
+    const button = event.target.closest("button");
+
+    if(!button){
+        return;
+    }
+
+    const type = button.dataset.type;
+    const value = button.dataset.value;
+
+    if (type === "number") {
+    handleNumber(value);
+    }
+
+    if (type === "operator") {
+    handleOperator(value);
+    }
+
+    if (type === "clear") {
+    clearCalculator();
+    }
+
+    console.log(type, value);
+})
+
+function handleNumber(value) {
+    if (calculatorState.currentValue === "0") {
+        calculatorState.calculatorState = value;
+        return;
+    }
+    calculatorState.currentValue += value; 
+}
+
+function handleOperator(operator) {
+    calculatorState.previousValue = calculatorState.currentValue;
+    calculatorState.operator = operator;
+    calculatorState.currentValue = "0";
+}
+
+function clearCalculator() {
+    calculatorState.currentValue = "0";
+    calculatorState.previousValue = null;
+    calculatorState.operator = null;
+}
