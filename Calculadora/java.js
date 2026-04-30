@@ -8,23 +8,28 @@ const calculatorState = {
 };
 
 const buttons = [
-{ label: "7", type: "number" },
-{ label: "8", type: "number" },
-{ label: "9", type: "number" },
-{ label: "/", type: "operator" },
-{ label: "4", type: "number" },
-{ label: "5", type: "number" },
-{ label: "6", type: "number" },
-{ label: "*", type: "operator" },
-{ label: "1", type: "number" },
-{ label: "2", type: "number" },
-{ label: "3", type: "number" },
-{ label: "-", type: "operator" },
-{ label: "0", type: "number" },
-{ label: "<-", type: "backspace" },
 { label: "C", type: "clear" },
-{ label: "+", type: "operator" },
-{ label: "=", type: "equals" },
+  { label: "←", type: "backspace" },
+  { label: "/", type: "operator" },
+  { label: "*", type: "operator" },
+
+  { label: "7", type: "number" },
+  { label: "8", type: "number" },
+  { label: "9", type: "number" },
+  { label: "-", type: "operator" },
+
+  { label: "4", type: "number" },
+  { label: "5", type: "number" },
+  { label: "6", type: "number" },
+  { label: "+", type: "operator" },
+
+  { label: "1", type: "number" },
+  { label: "2", type: "number" },
+  { label: "3", type: "number" },
+  { label: "=", type: "equals" },
+
+  { label: "0", type: "number" },
+  { label: ".", type: "decimal" }
 ];
 
 buttons.forEach(function (buttonConfig){
@@ -35,6 +40,9 @@ buttons.forEach(function (buttonConfig){
     button.dataset.value = buttonConfig.label;
     button.classList.add("calculator-button");
 
+    if (buttonConfig.label === "0" || buttonConfig.label === "←") {
+    button.classList.add("span-2");
+}
     if (buttonConfig.type === "operator"){
         button.classList.add("operator");
     }
@@ -44,8 +52,6 @@ buttons.forEach(function (buttonConfig){
 function renderDisplay() {
     display.textContent = calculatorState.currentValue;
 }
-
-
 
 function handleNumber(value) {
     if (calculatorState.currentValue === "0") {
@@ -73,6 +79,13 @@ function handleBackspace(){
     } else {
         calculatorState.currentValue = "0";
     }
+}
+
+function handleDecimal() {
+    if (calculatorState.currentValue.includes(".")) {
+        return; 
+    }
+    calculatorState.currentValue += ".";
 }
 
 function calculateResult() {
@@ -136,6 +149,9 @@ if (type === "backspace") {
     handleBackspace();
 }
 
+if (type === "decimal") {
+    handleDecimal();
+}
     renderDisplay();
     console.log(type, value);
 })
