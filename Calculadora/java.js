@@ -57,11 +57,24 @@ function handleNumber(value) {
     if (calculatorState.currentValue === "0") {
         calculatorState.currentValue = value;
         return;
-    }
-    calculatorState.currentValue += value; 
+    } else if (calculatorState.currentValue ==="-0") {
+        calculatorState.currentValue = "-" + value;
+    }else{
+        calculatorState.currentValue += value; 
+    }  
 }
 
 function handleOperator(operator) {
+
+    if (calculatorState.currentValue === "0" && operator === "-"){
+        calculatorState.currentValue = "-";
+        return;
+    }
+
+    if (calculatorState.currentValue === "-") {
+        return;
+    }
+
     calculatorState.previousValue = calculatorState.currentValue;
     calculatorState.operator = operator;
     calculatorState.currentValue = "0";
@@ -102,7 +115,7 @@ function calculateResult() {
     }
     
     if (calculatorState.operator === "-"){
-        return previous - current;
+        result = previous - current;
     }
 
     if (calculatorState.operator === "*"){
@@ -110,6 +123,11 @@ function calculateResult() {
     }
 
     if (calculatorState.operator === "/") {
+        if (current === 0) {
+            alert("No se puede dividir por cero");
+            clearCalculator();
+            return;
+        }
     result = previous / current;
     }
 
