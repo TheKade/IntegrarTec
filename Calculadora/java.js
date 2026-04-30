@@ -21,9 +21,10 @@ const buttons = [
 { label: "3", type: "number" },
 { label: "-", type: "operator" },
 { label: "0", type: "number" },
+{ label: "<-", type: "backspace" },
 { label: "C", type: "clear" },
+{ label: "+", type: "operator" },
 { label: "=", type: "equals" },
-{ label: "+", type: "operator" }
 ];
 
 buttons.forEach(function (buttonConfig){
@@ -66,6 +67,14 @@ function clearCalculator() {
     calculatorState.operator = null;
 }
 
+function handleBackspace(){
+    if(calculatorState.currentValue.length > 1){
+                calculatorState.currentValue = calculatorState.currentValue.slice(0, -1);
+    } else {
+        calculatorState.currentValue = "0";
+    }
+}
+
 function calculateResult() {
     if (calculatorState.previousValue === null || calculatorState.operator === null){
         return;
@@ -103,6 +112,8 @@ function calculateResult() {
         return;
     }
 
+    button.classList.add("active");
+
     const type = button.dataset.type;
     const value = button.dataset.value;
 
@@ -121,9 +132,11 @@ function calculateResult() {
     if (type === "equals") {
     calculateResult();
 }
+if (type === "backspace") {
+    handleBackspace();
+}
 
     renderDisplay();
-
     console.log(type, value);
 })
 
