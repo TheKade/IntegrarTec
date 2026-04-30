@@ -13,8 +13,6 @@
 }
 
 
-
-
 .calculator{
     max-width: 360px;
     margin: 40px auto;
@@ -48,10 +46,17 @@ font-size: 32px;
     background: white;
     font-size: 20px;
     cursor: pointer;
+    transition: all 0.1s ease;
+    outline: none;
 }
 
 .calculator-button:hover{
     background: var(--color-button)
+}
+.calculator-button:active {
+    transform: scale(0.95); 
+    background-color: #e5e7eb; 
+    border-color: var(--color-active);
 }
 
 .calculator-button.operator{
