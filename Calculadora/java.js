@@ -1,5 +1,6 @@
 const display = document.querySelector(".calculator-display");
 const keypad = document.querySelector(".calculator-keypad");
+const operationDisplay = document.getElementById("current-operation");
 
 const calculatorState = {
     currentValue : "0",
@@ -51,6 +52,12 @@ buttons.forEach(function (buttonConfig){
 
 function renderDisplay() {
     display.textContent = calculatorState.currentValue;
+
+    if (calculatorState.previousValue !==null && calculatorState.operator !== null){
+      operationDisplay.textContent = `${calculatorState.previousValue} ${calculatorState.operator}`;
+    } else {
+        operationDisplay.textContent = "";
+    }
 }
 
 function handleNumber(value) {
