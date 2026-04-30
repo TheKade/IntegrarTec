@@ -1,6 +1,7 @@
 const display = document.querySelector(".calculator-display");
 const keypad = document.querySelector(".calculator-keypad");
 const operationDisplay = document.getElementById("current-operation");
+const lastCalcText = document.getElementById("last-calc-text");
 
 const calculatorState = {
     currentValue : "0",
@@ -137,6 +138,8 @@ function calculateResult() {
         }
     result = previous / current;
     }
+
+    lastCalcText.textContent = `${previous} ${calculatorState.operator} ${current} = ${result}`;
 
     calculatorState.currentValue = String(result);
     calculatorState.previousValue = null;
