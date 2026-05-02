@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora</title>
-
+    <title>Calculadora Pro - Senior Refactor</title>
     <link rel="stylesheet" href="style.css">
-    
 </head>
 <body>
    <main class="calculator">
     <h1>Calculadora</h1>
-        <section class= "calculator-panel" aria-label="Calculadora_simple">
+        <section class="calculator-panel" aria-label="Calculadora">
             <div class="calculator-display-container">
-                <div class="calculator-operation" id="current-operation"> </div>
-                <output class= "calculator-display">0</output>
+                <!-- aria-live permite que lectores de pantalla anuncien cambios -->
+                <div class="calculator-operation" id="current-operation" aria-live="polite"></div>
+                <output class="calculator-display" id="display">0</output>
             </div>
-            <div class= "calculator-keypad"></div>
+            
+            <div class="calculator-keypad">
+ 
+            </div>
+
             <div class="last-calc-container">
-        <p>Última operación: <span id="last-calc-text">Ninguna</span></p>
-        </div>
+                <p>Última operación: <span id="last-calc-text">Ninguna</span></p>
+            </div>
         </section>
    </main>
     
-    <script src="java.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
